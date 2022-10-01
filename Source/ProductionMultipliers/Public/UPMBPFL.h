@@ -10,8 +10,7 @@ class PRODUCTIONMULTIPLIERS_API UPMBPFL : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 
-	public:
-
+public:
 	UFUNCTION(BlueprintCallable)
 	static void PM_ForceUpdateFactory(AFGBuildableFactory* target);
 };
