@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ProductionMultipliersModule.h"
 
 void FProductionMultipliersModule::StartupModule() {}

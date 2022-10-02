@@ -1,3 +1,5 @@
+#pragma once
+
 #include "UPMBPFL.h"
 
 #include "Buildables/FGBuildableFactory.h"

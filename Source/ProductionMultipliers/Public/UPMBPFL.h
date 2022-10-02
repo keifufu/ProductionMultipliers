@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Buildables/FGBuildableFactory.h"
 
 #include "UPMBPFL.generated.h"
