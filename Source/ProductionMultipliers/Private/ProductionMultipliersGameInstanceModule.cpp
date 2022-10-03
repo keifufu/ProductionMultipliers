@@ -9,6 +9,8 @@
 #include "SatisfactoryModLoader.h"
 #include "Patching/NativeHookManager.h"
 #include "Buildables/FGBuildableFactory.h"
+#include "Buildables/FGBuildableFrackingActivator.h"
+#include "FGRecipe.h"
 
 DEFINE_LOG_CATEGORY(LogProductionMultipliers);
 
@@ -18,7 +20,9 @@ void UProductionMultipliersGameInstanceModule::DispatchLifecycleEvent(ELifecycle
 
 	if (Phase == ELifecyclePhase::POST_INITIALIZATION) {
 		UE_LOG(LogProductionMultipliers, Display, TEXT("[DEBUG] Post Initialization: Registering Hooks"));
+
 		AFGBuildableFactory* bfCDO = GetMutableDefault<AFGBuildableFactory>();
+		bfCDO->AddToRoot();
 		SUBSCRIBE_METHOD_VIRTUAL_AFTER(AFGBuildableFactory::OnRep_ReplicationDetailActor, bfCDO, ([this](AFGBuildableFactory* self) {
 			UWorld* CurrentWorld = GetWorld();
 			if (CurrentWorld) {
