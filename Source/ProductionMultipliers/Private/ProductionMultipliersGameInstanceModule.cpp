@@ -31,9 +31,13 @@ void UProductionMultipliersGameInstanceModule::DispatchLifecycleEvent(ELifecycle
 
 				if (ProductionMultipliersClientSubsystem) {
 					ProductionMultipliersClientSubsystem->PM_OnReplicated.Broadcast(self);
-				} else {
+				}
+				else {
 					UE_LOG(LogProductionMultipliers, Error, TEXT("[DEBUG] Failed to find AProductionMultipliersClientSubsystem"));
 				}
+			}
+			else {
+				UE_LOG(LogProductionMultipliers, Error, TEXT("[DEBUG] Failed to find CurrentWorld"));
 			}
 		}));
 	}
