@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Buildables/FGBuildableFactory.h"
+#include "Buildables/FGBuildableGenerator.h"
 #include "FGRecipe.h"
 
 #include "UPMBPFL.generated.h"
