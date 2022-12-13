@@ -23,10 +23,19 @@ void UProductionMultipliersGameInstanceModule::DispatchLifecycleEvent(ELifecycle
 
 		AFGBuildableFactory* bfCDO = GetMutableDefault<AFGBuildableFactory>();
 		bfCDO->AddToRoot();
-		SUBSCRIBE_METHOD_VIRTUAL_AFTER(AFGBuildableFactory::OnRep_ReplicationDetailActor, bfCDO, ([this](AFGBuildableFactory* self) {
+		/*
+		 * We used to hook `OnRep_ReplicationDetailActor` here, which seems to have been called every time a client
+		 * interacted with a machine which has not been replicated yet.
+		 * 
+		 * This seems to have changed somewhere around U7? It doesn't fire anymore.
+		 * Luckily `OnRep_CurrentPotential` also fires every time we replicate the machine,
+		 * although I guess it could also fire unnecessarily sometimes. I don't think that matters much.
+		 */
+		SUBSCRIBE_METHOD_VIRTUAL_AFTER(AFGBuildableFactory::OnRep_CurrentPotential, bfCDO, ([this](AFGBuildableFactory* self) {
 			UWorld* CurrentWorld = GetWorld();
 			if (CurrentWorld) {
-				UE_LOG(LogProductionMultipliers, Display, TEXT("[DEBUG] Replicated Detail Actor for: %s"), *self->GetName());
+				//UE_LOG(LogProductionMultipliers, Display, TEXT("[DEBUG] Replicated Detail Actor for: %s"), *self->GetName());
+				UE_LOG(LogProductionMultipliers, Display, TEXT("[DEBUG] Replicated Actor: %s"), *self->GetName());
 				AProductionMultipliersClientSubsystem* ProductionMultipliersClientSubsystem = CurrentWorld->GetSubsystem<USubsystemActorManager>()->GetSubsystemActor<AProductionMultipliersClientSubsystem>();
 
 				if (ProductionMultipliersClientSubsystem) {
